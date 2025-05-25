@@ -189,6 +189,37 @@ fn main() {
 
 
 
+use std::fs;
+
+fn main() {
+    let greeting_file_result = fs::read_to_string("hello.txt");
+
+    match greeting_file_result {
+        Ok(file_content) => {
+            println!("File read : {}", file_content);
+        },
+        Err(error) => {
+            println!("Failed to read file: {}", error);
+        }
+    }
+}
+
+
+use std::ops::Add;
+fn main (){
+    println!("{}" , sum(1, 2));
+}
+fn sum<T: Add<Output = T>>(a:T , b:T) -> T {
+    return a + b 
+}
+
+
+
+
+
+
+
+
 
 
 
