@@ -1,3 +1,4 @@
+/*
 
 fn main() {
     let ans: u32 = sum(1, 2); // Correct: positional arguments
@@ -185,10 +186,6 @@ fn main() {
     println!("Area rectangle: {}", calculate_area(rectangle));
 }
 
-
-
-
-
 use std::fs;
 
 fn main() {
@@ -212,6 +209,130 @@ fn main (){
 fn sum<T: Add<Output = T>>(a:T , b:T) -> T {
     return a + b 
 }
+
+
+use std::ops::Mul;
+struct Rect<X> {
+    width: X,
+    height: X,
+}
+
+impl<X: Mul<Output = X> + Copy > Rect<X> { // cpoy trait we learn in macros soon 
+    fn area(&self) -> X {
+         return self.width * self.height
+    }
+}
+
+fn main() {
+    let r = Rect {
+        width: 10,
+        height: 19,
+    };
+    println!("{}", r.area());
+}
+
+
+// macros 
+
+use std::fmt::{ write , Debug, Formatter} ;
+
+#[derive(Debug)]
+struct User {
+    username: String,
+}
+
+
+
+// impl Debug for User{
+//     fn fmt (&self , f:&mut Formatter<'_>) -> std::fmt::Result {
+//         write!(f, "users username is {}", self.username)
+//     }
+// }
+fn main(){
+    let u = User {
+        username: String::from("kugarabachi"),
+
+    };
+    println!("{:?}" , u);
+}
+
+#[derive(Debug, Clone, Copy)]
+
+struct User {
+    is_male: bool,
+    age: u32,
+   
+}
+fn main() {
+    let u1: User = User {
+        is_male: true,
+        age:10,
+       
+    };
+    let u2= u1.clone();
+    println!("{:?} , {:?}" , u1 , u2 );
+}
+
+// serde 
+
+
+use serde::{Serialize, Deserialize};
+use serde_json::{self, Value};
+
+#[derive(Serialize, Deserialize, Debug)]
+struct Person {
+    name: String,
+    age: u32,
+}
+
+fn main() {
+    let person = Person {
+        name: String::from("John Doe"),
+        age: 30,
+    };
+
+    // Serialize to JSON
+    let json_str = serde_json::to_string(&person).unwrap();
+    println!("Serialized JSON: {}", json_str);
+
+    // Deserialize from JSON
+    let deserialized_person: Person = serde_json::from_str(&json_str).unwrap();
+    println!("Deserialized Person: {:?}", deserialized_person);
+}
+*/
+
+//lifetimes 
+
+
+fn main() {
+    let str1 = String::from("hello");
+    let str2 = String::from("world");
+    let ans = longest_str(&str1, &str2);
+    println!("{}", ans);
+}
+
+fn longest_str(a: &str, b: &str) -> &str {
+    if a.len() > b.len() {
+        a
+    } else {
+        b
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
